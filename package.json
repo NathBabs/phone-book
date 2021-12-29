@@ -1,0 +1,11 @@
+{
+  "name": "phonebook",
+  "version": "1.0.0",
+  "description": "A data structure for representing a simple phone book",
+  "main": "phoneBook.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathaniel Babalola",
+  "license": "MIT"
+}
