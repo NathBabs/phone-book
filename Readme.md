@@ -59,6 +59,13 @@ You can include any of ***name***, ***email*** or ***created_at*** to the find f
     Output
     ➜ Number Not Found
 
+### List all phone numbers in the phone book
+    console.log(pB.listOfPhoneNumbers);
+    
+    Output
+    ➜  [ '8100419090', '8100419999' ]
+
+
 ### Get the total number of phone numbers in the Phone book
     console.log(pb.length)
     
