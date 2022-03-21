@@ -1,99 +1,92 @@
 class PhoneBook {
+  constructor() {
+    this.count = 0;
+    this.array = new Array(10000000);
+    this.occupiedIndexes = [];
+  }
 
-    constructor() {
-        this.count = 0
-        this.array = new Array(10000000);
-        this.occupiedIndexes = [];
+  add(number, details) {
+    // remove all spaces and hyphens
+    number = number.replace(/-| /g, '');
+    // select the last 10 digits
+    number = number.slice(-10);
+
+    // use the phone number as an index and set its value to it's details
+    this.array[number] = details;
+
+    // add to the record of occupiedIndexes
+    this.occupiedIndexes.push(number);
+    // increase the number of count denoting the number of records in the array
+    this.count++;
+  }
+
+  delete(number) {
+    number = number.replace(/-| /g, '');
+    number = number.slice(-10);
+    this.array[number] = null;
+
+    // get the index of the phone number in the occupiedIndexes array
+    const numberIndex = this.occupiedIndexes.indexOf(number);
+    // remove that phone number from the array
+    this.occupiedIndexes.splice(numberIndex, 1);
+    // decrease the number of records by 1
+    this.count--;
+  }
+
+  // you can pass in ay number of details you want from the values under that unique phone number
+  find(number, ...details) {
+    number = number.replace(/-| /g, '');
+    number = number.slice(-10);
+
+    // check if there isn't an object at that index
+    if (!this.array[number]) {
+      console.log('Number Not Found');
+      return;
     }
 
-    add(number, details) {
-        // remove all spaces and hyphens
-        number = number.replace(/-| /g, '');
-        // select the last 10 digits
-        number = number.slice(-10);
-
-        // use the phone number as an index and set its value to it's details
-        this.array[number] = details;
-
-        // add to the record of occupiedIndexes
-        this.occupiedIndexes.push(number);
-        // increase the number of count denoting the number of records in the array
-        this.count++;
+    // check if the user wants any specific detail from the record and log it to the console
+    if (details.length > 0) {
+      details.forEach((detail) => {
+        console.log(this.array[number][`${detail}`]);
+      });
+      return;
     }
 
-    delete(number) {
-        number = number.replace(/-| /g, '')
-        number = number.slice(-10);
-        this.array[number] = null;
+    // else just log all the details to the console
+    console.log(this.array[number]);
+  }
 
-        // get the index of the phone number in the occupiedIndexes array
-        const numberIndex = this.occupiedIndexes.indexOf(number);
-        // remove that phone number from the array
-        this.occupiedIndexes.splice(numberIndex, 1);
-        //decrease the number of records by 1
-        this.count--;
-    }
+  get listOfPhoneNumbers() {
+    return this.occupiedIndexes;
+  }
 
-    // you can pass in ay number of details you want from the values under that unique phone number
-    find(number, ...details) {
-        number = number.replace(/-| /g, '')
-        number = number.slice(-10);
-
-        // check if there isn't an object at that index
-        if (!this.array[number]) {
-            console.log('Number Not Found')
-            return;
-        }
-
-        // check if the user wants any specific detail from the record and log it to the console
-        if (details.length > 0) {
-            details.forEach(detail => {
-                console.log(this.array[number][`${detail}`]);
-            });
-            return;
-        }
-
-        // else just log all the details to the console
-        console.log(this.array[number]);
-
-    }
-
-    get listOfPhoneNumbers() {
-        return this.occupiedIndexes;
-    }
-
-    get length() {
-        return this.count;
-    }
+  get length() {
+    return this.count;
+  }
 }
 
 const pB = new PhoneBook();
 
 pB.add('8100419090', {
-    name: 'Babalola',
-    email: 'nathanielbabalola1@gmail.com',
-    created_at: Date().toString()
-})
+  name: 'Babalola',
+  email: 'nathanielbabalola1@gmail.com',
+  created_at: Date().toString(),
+});
 
 pB.add('8100419999', {
-    name: 'Babalola',
-    email: 'nath@email.com',
-    created_at: Date().toString()
-})
+  name: 'Babalola',
+  email: 'nath@email.com',
+  created_at: Date().toString(),
+});
 // get just the name and the date that phone number was added
 pB.find('8100419090', 'name', 'created_at');
-
 
 pB.find('8100419999');
 
 // delete a record
 pB.delete('8100419090');
-console.log(pB.length)
+console.log(pB.length);
 console.log(pB.listOfPhoneNumbers);
-
-
-
-
 
 // Trying Hashing
 // class PhoneBook {
